@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Surtel Recording Puller</title>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        input, button {
+            padding: 8px;
+            margin: 6px 0;
+            width: 220px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Surtel Recording Downloader</h2>
+
+    <label>Destination Number:</label><br>
+    <input type="text" id="destination"><br>
+
+    <label>Start Date (YYYY-MM-DD):</label><br>
+    <input type="date" id="startDate"><br>
+
+    <label>End Date (YYYY-MM-DD):</label><br>
+    <input type="date" id="endDate"><br><br>
+
+    <button onclick="sendRequest()">Pull Recordings</button>
+
+    <p id="response"></p>
+
+    <script>
+        async function sendRequest() {
+            const destination = document.getElementById("destination").value;
+            const start = document.getElementById("startDate").value;
+            const end = document.getElementById("endDate").value;
+
+            document.getElementById("response").innerText =
+                "⏳ Pulling recordings — server will respond when done...";
+
+            try {
+                const res = await fetch("http://127.0.0.1:5000/pull", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        destination,
+                        start_date: start,
+                        end_date: end
+                    })
+                });
+
+                const data = await res.json();
+                document.getElementById("response").innerText =
+                    "Status: " + data.status;
+
+            } catch (err) {
+                document.getElementById("response").innerText =
+                    "Request failed: " + err;
+            }
+        }
+    </script>
+</body>
+</html>
+
