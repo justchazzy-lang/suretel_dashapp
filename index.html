@@ -5,7 +5,7 @@
     <title>Surtel Recording Puller</title>
 
     <style>
-        /* Load Saphifen */
+        /* Load Saphifen font */
         @font-face {
             font-family: 'Saphifen';
             src: url('fonts/Saphifen.ttf') format('truetype');
@@ -14,21 +14,21 @@
         }
 
         body {
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
             background: #f5f5f5;
-            overflow-x: hidden;
             transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
         /* Heading */
         h2 {
-            font-family: 'Saphifen', 'Times New Roman', serif;
-            font-size: 30px;
+            font-family: 'Saphifen', Arial, sans-serif;
+            font-size: 32px;
             color: #8B0000; /* dark red */
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
         /* Top toggles */
@@ -47,14 +47,13 @@
 
         .dark-btn {
             background-color: #555;
-            color: #fff;
+            color: white;
         }
 
         .dark-btn:hover {
             background-color: #333;
         }
 
-        /* Valentine toggle styling with downloaded image */
         .valentine-btn {
             background-color: #ffb6c1; /* pink */
             color: #8b0033; /* dark pink text */
@@ -62,32 +61,18 @@
             background-size: 20px 20px;
             background-repeat: no-repeat;
             background-position: 10px center;
-            padding-left: 35px; /* space for heart image */
+            padding-left: 35px;
         }
 
         .valentine-btn:hover {
             background-color: #ff99b0;
         }
 
-        /* Valentine background */
-        body.valentine-mode {
-            background-image: url("assets/valentine-heart.jpg");
-            background-repeat: repeat;
-            background-size: 120px;
-            background-position: center;
-        }
-
-        /* Dark mode */
-        body.dark-mode {
-            background: #121212;
-            color: #f1f1f1;
-        }
-
         /* Card */
         .container {
             background: rgba(255, 255, 255, 0.92);
             max-width: 420px;
-            margin: 0 auto 60px auto;
+            margin: 20px auto 60px auto;
             padding: 25px;
             border-radius: 14px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -134,12 +119,17 @@
             font-weight: bold;
         }
 
-        /* Falling hearts animation */
+        /* Valentine mode background */
+        body.valentine-mode {
+            background-color: #ffb6c1; /* pink background */
+        }
+
+        /* Falling hearts */
         .heart {
             position: fixed;
             top: -20px;
             font-size: 20px;
-            color: #ff1493;
+            color: #8b0033; /* dark pink hearts */
             animation: fall linear forwards;
             pointer-events: none;
             z-index: 1;
@@ -151,12 +141,10 @@
                 opacity: 0;
             }
         }
-
     </style>
 </head>
 
 <body>
-
     <!-- Top toggles -->
     <div class="toggle-container">
         <button class="toggle-btn dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
@@ -215,9 +203,7 @@
 
                 document.body.appendChild(heart);
 
-                setTimeout(() => {
-                    heart.remove();
-                }, 7000);
+                setTimeout(() => heart.remove(), 7000);
             }, 300);
         }
 
@@ -255,9 +241,9 @@
             }
         }
     </script>
-
 </body>
 </html>
+
 
 
 
