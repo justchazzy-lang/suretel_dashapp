@@ -19,7 +19,6 @@
             background: #ffffff;
             color: #000;
             transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
         }
 
         /* Headings only */
@@ -34,63 +33,49 @@
             margin-bottom: 20px;
         }
 
+        /* ===== BUTTONS & INPUTS ===== */
         input, button {
-            padding: 8px;
-            margin: 6px 0;
-            width: 220px;
+            padding: 12px;          /* bigger padding */
+            margin: 8px 0;
+            width: 240px;            /* wider */
+            font-size: 16px;         /* larger text */
             font-family: Arial, sans-serif;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         button {
             cursor: pointer;
-            transition:
-                transform 0.15s ease,
-                box-shadow 0.15s ease,
-                background-color 0.2s ease;
         }
 
+        /* Hover scale effect for buttons */
         button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
         }
 
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        /* Toggle buttons */
+        .toggle-buttons {
+            margin-bottom: 20px;
+        }
+
+        /* Make toggle icons larger */
+        .toggle-buttons button {
+            font-size: 18px;    /* bigger emoji/icons */
+            padding: 14px 20px;
         }
 
         /* ===== DARK MODE ===== */
         body.dark-mode {
-            background: linear-gradient(120deg, #0b0b0b, #141414, #0f0f0f);
-            background-size: 400% 400%;
-            animation: darkFlow 20s ease infinite;
+            background: #121212;
             color: #f1f1f1;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes darkFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 🌙 Breathing glow (dark mode) */
         body.dark-mode h2 {
             color: #ff4d4d;
-            animation: breatheGlow 4s ease-in-out infinite;
-        }
-
-        @keyframes breatheGlow {
-            0% {
-                text-shadow: 0 0 6px rgba(255,77,77,0.3);
-            }
-            50% {
-                text-shadow:
-                    0 0 14px rgba(255,77,77,0.8),
-                    0 0 28px rgba(255,77,77,0.5);
-            }
-            100% {
-                text-shadow: 0 0 6px rgba(255,77,77,0.3);
-            }
+            animation: glow 2s ease-in-out infinite alternate;
         }
 
         body.dark-mode input,
@@ -98,42 +83,41 @@
             background: #1f1f1f;
             color: #f1f1f1;
             border: 1px solid #444;
-            box-shadow: 0 0 6px rgba(255,255,255,0.15);
         }
 
-        /* ✨ Fireflies */
+        /* Breathing glow for dark mode heading */
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff4d4d; }
+            50% { text-shadow: 0 0 15px #ff4d4d, 0 0 30px #ff4d4d; }
+            100% { text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff4d4d; }
+        }
+
+        /* Floating fireflies */
         .firefly {
-            position: fixed;
+            position: absolute;
             width: 6px;
             height: 6px;
-            background: rgba(255,255,200,0.8);
+            background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 12px rgba(255,255,200,0.9);
-            animation: floatUp linear forwards;
-            pointer-events: none;
-            z-index: 1;
+            opacity: 0.8;
+            animation: float 5s linear infinite;
         }
 
-        @keyframes floatUp {
-            from {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-            20% { opacity: 1; }
-            to {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
+        @keyframes float {
+            0% { transform: translate(0,0); opacity: 0.8; }
+            50% { transform: translate(50px, -100px); opacity: 0.2; }
+            100% { transform: translate(-50px, -200px); opacity: 0.8; }
         }
 
         /* ===== VALENTINE MODE ===== */
         body.valentine-mode {
             background-color: #ffb6c1;
             color: #5a0028;
-            background-image:
-                radial-gradient(circle at 10px 10px, #ff69b4 4px, transparent 4px),
-                radial-gradient(circle at 30px 30px, #ff1493 4px, transparent 4px);
-            background-size: 40px 40px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('assets/valentine-heart.jpg');
+            background-repeat: repeat;
+            background-size: 60px 60px;
         }
 
         body.valentine-mode h2 {
@@ -147,26 +131,35 @@
             color: #5a0028;
         }
 
-        /* 💖 Falling hearts */
+        /* Falling hearts animation */
         .heart {
-            position: fixed;
-            top: -20px;
-            font-size: 20px;
-            animation: fall linear forwards;
-            pointer-events: none;
-            z-index: 2;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            transform: rotate(45deg);
+            animation: fall 4s linear infinite;
+            z-index: 10;
         }
+
+        .heart:before,
+        .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .heart:before { top: -10px; left: 0; }
+        .heart:after { left: 10px; top: 0; }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-50px) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(600px) rotate(45deg); opacity: 0; }
         }
 
-        .toggle-buttons {
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 
@@ -192,73 +185,16 @@
     <p id="response"></p>
 
     <script>
-        let heartInterval;
-        let fireflyInterval;
-
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             document.body.classList.remove("valentine-mode");
-            stopHearts();
-
-            if (document.body.classList.contains("dark-mode")) {
-                startFireflies();
-            } else {
-                stopFireflies();
-            }
+            removeHearts();
         }
 
         function toggleValentineMode() {
             document.body.classList.toggle("valentine-mode");
             document.body.classList.remove("dark-mode");
-            stopFireflies();
-
-            if (document.body.classList.contains("valentine-mode")) {
-                startHearts();
-            } else {
-                stopHearts();
-            }
-        }
-
-        /* 💖 Hearts */
-        function startHearts() {
-            stopHearts();
-            heartInterval = setInterval(createHeart, 400);
-        }
-
-        function stopHearts() {
-            clearInterval(heartInterval);
-            document.querySelectorAll('.heart').forEach(h => h.remove());
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerText = '💖';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = 4 + Math.random() * 3 + 's';
-            heart.style.fontSize = 16 + Math.random() * 20 + 'px';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 7000);
-        }
-
-        /* ✨ Fireflies */
-        function startFireflies() {
-            stopFireflies();
-            fireflyInterval = setInterval(createFirefly, 1200);
-        }
-
-        function stopFireflies() {
-            clearInterval(fireflyInterval);
-            document.querySelectorAll('.firefly').forEach(f => f.remove());
-        }
-
-        function createFirefly() {
-            const f = document.createElement('div');
-            f.className = 'firefly';
-            f.style.left = Math.random() * 100 + 'vw';
-            f.style.animationDuration = 8 + Math.random() * 6 + 's';
-            document.body.appendChild(f);
-            setTimeout(() => f.remove(), 15000);
+            addHearts();
         }
 
         async function sendRequest() {
@@ -289,9 +225,52 @@
                     "Request failed: " + err;
             }
         }
+
+        /* ===== Valentine Falling Hearts ===== */
+        function addHearts() {
+            for (let i = 0; i < 15; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+                heart.style.fontSize = 12 + Math.random() * 8 + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+
+        function removeHearts() {
+            document.querySelectorAll('.heart').forEach(h => h.remove());
+        }
+
+        /* ===== Fireflies for Dark Mode ===== */
+        function addFireflies() {
+            for (let i = 0; i < 10; i++) {
+                let firefly = document.createElement('div');
+                firefly.className = 'firefly';
+                firefly.style.top = Math.random() * window.innerHeight + 'px';
+                firefly.style.left = Math.random() * window.innerWidth + 'px';
+                firefly.style.animationDuration = 4 + Math.random() * 6 + 's';
+                document.body.appendChild(firefly);
+            }
+        }
+
+        function removeFireflies() {
+            document.querySelectorAll('.firefly').forEach(f => f.remove());
+        }
+
+        // Automatically manage fireflies
+        const observer = new MutationObserver(() => {
+            if (document.body.classList.contains('dark-mode')) {
+                if (!document.querySelector('.firefly')) addFireflies();
+            } else {
+                removeFireflies();
+            }
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     </script>
 </body>
 </html>
+
 
 
 
