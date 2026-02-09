@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <title>Surtel Recording Puller</title>
 
-    <!-- Google font (still fine to keep) -->
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
-
     <style>
         /* Load Saphifen */
         @font-face {
@@ -18,13 +15,16 @@
 
         body {
             text-align: center;
-            font-family: Arial, sans-serif; /* normal readable font */
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: #000;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* Apply Saphifen ONLY to headings */
-        h1, h2, h3, h4, h5, h6 {
+        /* Headings only */
+        h1, h2, h3 {
             font-family: 'Saphifen', 'Times New Roman', serif;
-            letter-spacing: 0.05em; /* optional polish */
+            letter-spacing: 0.05em;
         }
 
         h2 {
@@ -37,16 +37,64 @@
             padding: 8px;
             margin: 6px 0;
             width: 220px;
-            font-family: Arial, sans-serif; /* keep UI clean */
+            font-family: Arial, sans-serif;
         }
 
         button {
             cursor: pointer;
         }
+
+        /* ===== DARK MODE ===== */
+        body.dark-mode {
+            background: #121212;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode h2 {
+            color: #ff4d4d;
+        }
+
+        body.dark-mode input,
+        body.dark-mode button {
+            background: #1f1f1f;
+            color: #f1f1f1;
+            border: 1px solid #444;
+        }
+
+        /* ===== VALENTINE MODE ===== */
+        body.valentine-mode {
+            background-color: #ffb6c1;
+            color: #5a0028;
+            background-image:
+                radial-gradient(circle at 10px 10px, #ff69b4 4px, transparent 4px),
+                radial-gradient(circle at 30px 30px, #ff1493 4px, transparent 4px);
+            background-size: 40px 40px;
+        }
+
+        body.valentine-mode h2 {
+            color: #8b0033;
+        }
+
+        body.valentine-mode input,
+        body.valentine-mode button {
+            background: #ffe4ec;
+            border: 1px solid #ff69b4;
+            color: #5a0028;
+        }
+
+        /* Toggle buttons */
+        .toggle-buttons {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="toggle-buttons">
+        <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <button onclick="toggleValentineMode()">💖 Valentine Mode</button>
+    </div>
+
     <h2>Surtel Recording Downloader</h2>
 
     <label>Destination Number:</label><br>
@@ -63,6 +111,16 @@
     <p id="response"></p>
 
     <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            document.body.classList.remove("valentine-mode");
+        }
+
+        function toggleValentineMode() {
+            document.body.classList.toggle("valentine-mode");
+            document.body.classList.remove("dark-mode");
+        }
+
         async function sendRequest() {
             const destination = document.getElementById("destination").value;
             const start = document.getElementById("startDate").value;
