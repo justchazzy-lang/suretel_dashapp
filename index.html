@@ -5,7 +5,7 @@
     <title>Surtel Recording Puller</title>
 
     <style>
-        /* Load Saphifen font */
+        /* Load Saphifen */
         @font-face {
             font-family: 'Saphifen';
             src: url('fonts/Saphifen.ttf') format('truetype');
@@ -14,202 +14,111 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
             text-align: center;
-            background: #f5f5f5;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            color: #000;
             transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
         }
 
-        /* Heading */
+        /* Headings only */
+        h1, h2, h3 {
+            font-family: 'Saphifen', 'Times New Roman', serif;
+            letter-spacing: 0.05em;
+        }
+
         h2 {
-            font-family: 'Saphifen', Arial, sans-serif;
-            font-size: 32px;
-            color: #8B0000; /* dark red */
-            margin: 20px 0;
-        }
-
-        /* Top toggles */
-        .toggle-container {
-            margin: 20px 0;
-        }
-
-        .toggle-btn {
-            cursor: pointer;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 15px;
-            font-weight: bold;
-            margin: 0 8px;
-        }
-
-        .dark-btn {
-            background-color: #555;
-            color: white;
-        }
-
-        .dark-btn:hover {
-            background-color: #333;
-        }
-
-        .valentine-btn {
-            background-color: #ffb6c1; /* pink */
-            color: #8b0033; /* dark pink text */
-            background-image: url('assets/valentine-heart.jpg');
-            background-size: 20px 20px;
-            background-repeat: no-repeat;
-            background-position: 10px center;
-            padding-left: 35px;
-        }
-
-        .valentine-btn:hover {
-            background-color: #ff99b0;
-        }
-
-        /* Card */
-        .container {
-            background: rgba(255, 255, 255, 0.92);
-            max-width: 420px;
-            margin: 20px auto 60px auto;
-            padding: 25px;
-            border-radius: 14px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            position: relative;
-            z-index: 10;
-            transition: background 0.3s;
-        }
-
-        body.dark-mode .container {
-            background: rgba(30, 30, 30, 0.95);
+            font-size: 30px;
+            color: #8B0000;
+            margin-bottom: 20px;
         }
 
         input, button {
-            padding: 10px;
-            margin: 8px 0;
-            width: 90%;
-            max-width: 260px;
-            font-size: 14px;
+            padding: 8px;
+            margin: 6px 0;
+            width: 220px;
+            font-family: Arial, sans-serif;
         }
 
-        button.main-btn {
+        button {
             cursor: pointer;
-            border-radius: 8px;
-            border: none;
-            background-color: #e91e63;
-            color: white;
-            font-weight: bold;
         }
 
-        button.main-btn:hover {
-            background-color: #d81b60;
+        /* ===== DARK MODE ===== */
+        body.dark-mode {
+            background: #121212;
+            color: #f1f1f1;
         }
 
-        body.dark-mode button.main-btn {
-            background-color: #444;
+        body.dark-mode h2 {
+            color: #ff4d4d;
         }
 
-        body.dark-mode button.main-btn:hover {
-            background-color: #666;
+        body.dark-mode input,
+        body.dark-mode button {
+            background: #1f1f1f;
+            color: #f1f1f1;
+            border: 1px solid #444;
         }
 
-        #response {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        /* Valentine mode background */
+        /* ===== VALENTINE MODE ===== */
         body.valentine-mode {
-            background-color: #ffb6c1; /* pink background */
+            background-color: #ffb6c1;
+            color: #5a0028;
+            background-image:
+                radial-gradient(circle at 10px 10px, #ff69b4 4px, transparent 4px),
+                radial-gradient(circle at 30px 30px, #ff1493 4px, transparent 4px);
+            background-size: 40px 40px;
         }
 
-        /* Falling hearts */
-        .heart {
-            position: fixed;
-            top: -20px;
-            font-size: 20px;
-            color: #8b0033; /* dark pink hearts */
-            animation: fall linear forwards;
-            pointer-events: none;
-            z-index: 1;
+        body.valentine-mode h2 {
+            color: #8b0033;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
+        body.valentine-mode input,
+        body.valentine-mode button {
+            background: #ffe4ec;
+            border: 1px solid #ff69b4;
+            color: #5a0028;
+        }
+
+        /* Toggle buttons */
+        .toggle-buttons {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 
 <body>
-    <!-- Top toggles -->
-    <div class="toggle-container">
-        <button class="toggle-btn dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-        <button class="toggle-btn valentine-btn" onclick="toggleValentineMode()">💖 Valentine Mode</button>
+    <div class="toggle-buttons">
+        <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <button onclick="toggleValentineMode()">💖 Valentine Mode</button>
     </div>
 
-    <!-- Main card -->
-    <div class="container">
-        <h2>Surtel Recording Downloader 💘</h2>
+    <h2>Surtel Recording Downloader</h2>
 
-        <label>Destination Number:</label><br>
-        <input type="text" id="destination"><br>
+    <label>Destination Number:</label><br>
+    <input type="text" id="destination"><br>
 
-        <label>Start Date:</label><br>
-        <input type="date" id="startDate"><br>
+    <label>Start Date (YYYY-MM-DD):</label><br>
+    <input type="date" id="startDate"><br>
 
-        <label>End Date:</label><br>
-        <input type="date" id="endDate"><br>
+    <label>End Date (YYYY-MM-DD):</label><br>
+    <input type="date" id="endDate"><br><br>
 
-        <button class="main-btn" onclick="sendRequest()">Pull Recordings</button>
+    <button onclick="sendRequest()">Pull Recordings</button>
 
-        <p id="response"></p>
-    </div>
+    <p id="response"></p>
 
     <script>
-        let heartInterval = null;
-
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             document.body.classList.remove("valentine-mode");
-            stopHearts();
         }
 
         function toggleValentineMode() {
-            const enabled = document.body.classList.toggle("valentine-mode");
+            document.body.classList.toggle("valentine-mode");
             document.body.classList.remove("dark-mode");
-
-            if (enabled) {
-                startHearts();
-            } else {
-                stopHearts();
-            }
-        }
-
-        function startHearts() {
-            if (heartInterval) return;
-
-            heartInterval = setInterval(() => {
-                const heart = document.createElement("div");
-                heart.className = "heart";
-                heart.innerText = "💖";
-
-                heart.style.left = Math.random() * 100 + "vw";
-                heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-                heart.style.fontSize = (Math.random() * 10 + 16) + "px";
-
-                document.body.appendChild(heart);
-
-                setTimeout(() => heart.remove(), 7000);
-            }, 300);
-        }
-
-        function stopHearts() {
-            clearInterval(heartInterval);
-            heartInterval = null;
         }
 
         async function sendRequest() {
@@ -243,6 +152,7 @@
     </script>
 </body>
 </html>
+
 
 
 
