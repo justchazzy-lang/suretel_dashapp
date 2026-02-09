@@ -18,7 +18,13 @@
 
         body {
             text-align: center;
-            font-family: 'Saphifen', Arial, sans-serif;
+            font-family: Arial, sans-serif; /* normal readable font */
+        }
+
+        /* Apply Saphifen ONLY to headings */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Saphifen', 'Times New Roman', serif;
+            letter-spacing: 0.05em; /* optional polish */
         }
 
         h2 {
@@ -31,7 +37,7 @@
             padding: 8px;
             margin: 6px 0;
             width: 220px;
-            font-family: 'Saphifen', Arial, sans-serif;
+            font-family: Arial, sans-serif; /* keep UI clean */
         }
 
         button {
@@ -88,3 +94,4 @@
     </script>
 </body>
 </html>
+
