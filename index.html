@@ -94,16 +94,20 @@
             top: -20px;
             font-size: 20px;
             color: #8b0033; /* dark pink */
-            animation: fall linear forwards;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
             pointer-events: none;
             z-index: 1;
+            user-select: none;
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            25% { transform: translateY(25vh) rotate(15deg); }
+            50% { transform: translateY(50vh) rotate(-15deg); }
+            75% { transform: translateY(75vh) rotate(10deg); }
+            100% { transform: translateY(110vh) rotate(-10deg); opacity: 0; }
         }
     </style>
 </head>
@@ -146,17 +150,22 @@
         }
 
         function startHearts() {
-            if (heartInterval) return; // already running
+            if (heartInterval) return;
             heartInterval = setInterval(() => {
                 const heart = document.createElement("div");
                 heart.className = "heart";
                 heart.innerText = "💖";
+                // Random left position
                 heart.style.left = Math.random() * 100 + "vw";
-                heart.style.fontSize = (Math.random() * 12 + 16) + "px";
-                heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                // Random size
+                heart.style.fontSize = (Math.random() * 16 + 16) + "px";
+                // Random fall duration
+                heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+                // Random rotation direction
+                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
                 document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 7000);
-            }, 300);
+                setTimeout(() => heart.remove(), 8000);
+            }, 250);
         }
 
         function stopHearts() {
