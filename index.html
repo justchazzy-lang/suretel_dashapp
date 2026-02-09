@@ -19,7 +19,6 @@
             background: #ffffff;
             color: #000;
             transition: background 0.3s, color 0.3s;
-            overflow-x: hidden;
         }
 
         /* Headings only */
@@ -43,16 +42,47 @@
 
         button {
             cursor: pointer;
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease,
+                background-color 0.2s ease;
+        }
+
+        /* Button micro-interactions */
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         /* ===== DARK MODE ===== */
         body.dark-mode {
-            background: #121212;
+            background: linear-gradient(
+                120deg,
+                #0b0b0b,
+                #141414,
+                #0f0f0f
+            );
+            background-size: 400% 400%;
+            animation: darkFlow 20s ease infinite;
             color: #f1f1f1;
+        }
+
+        @keyframes darkFlow {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body.dark-mode h2 {
             color: #ff4d4d;
+            text-shadow:
+                0 0 8px rgba(255, 77, 77, 0.6),
+                0 0 16px rgba(255, 77, 77, 0.4);
         }
 
         body.dark-mode input,
@@ -60,22 +90,17 @@
             background: #1f1f1f;
             color: #f1f1f1;
             border: 1px solid #444;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
         }
 
         /* ===== VALENTINE MODE ===== */
         body.valentine-mode {
-            background-color: #ffb6c1; /* light pink */
+            background-color: #ffb6c1;
             color: #5a0028;
-
-            /* scattered valentine-heart.jpg from assets */
-            background-image: 
-                url('assets/valentine-heart.jpg'),
-                url('assets/valentine-heart.jpg'),
-                url('assets/valentine-heart.jpg'),
-                url('assets/valentine-heart.jpg');
-            background-repeat: no-repeat;
-            background-position: 10% 20%, 50% 40%, 80% 15%, 30% 70%;
-            background-size: 60px 60px, 50px 50px, 40px 40px, 55px 55px;
+            background-image:
+                radial-gradient(circle at 10px 10px, #ff69b4 4px, transparent 4px),
+                radial-gradient(circle at 30px 30px, #ff1493 4px, transparent 4px);
+            background-size: 40px 40px;
         }
 
         body.valentine-mode h2 {
@@ -92,28 +117,6 @@
         /* Toggle buttons */
         .toggle-buttons {
             margin-bottom: 20px;
-        }
-
-        /* ===== Falling hearts animation ===== */
-        .heart {
-            position: fixed;
-            top: -20px;
-            font-size: 20px;
-            color: #8b0033; /* dark pink */
-            animation-name: fall;
-            animation-timing-function: linear;
-            animation-fill-mode: forwards;
-            pointer-events: none;
-            z-index: 1;
-            user-select: none;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            25% { transform: translateY(25vh) rotate(15deg); }
-            50% { transform: translateY(50vh) rotate(-15deg); }
-            75% { transform: translateY(75vh) rotate(10deg); }
-            100% { transform: translateY(110vh) rotate(-10deg); opacity: 0; }
         }
     </style>
 </head>
@@ -140,43 +143,14 @@
     <p id="response"></p>
 
     <script>
-        let heartInterval = null;
-
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             document.body.classList.remove("valentine-mode");
-            stopHearts();
         }
 
         function toggleValentineMode() {
-            const enabled = document.body.classList.toggle("valentine-mode");
+            document.body.classList.toggle("valentine-mode");
             document.body.classList.remove("dark-mode");
-            if (enabled) startHearts();
-            else stopHearts();
-        }
-
-        function startHearts() {
-            if (heartInterval) return;
-            heartInterval = setInterval(() => {
-                const heart = document.createElement("div");
-                heart.className = "heart";
-                heart.innerText = "💖";
-                // Random left position
-                heart.style.left = Math.random() * 100 + "vw";
-                // Random size
-                heart.style.fontSize = (Math.random() * 16 + 16) + "px";
-                // Random fall duration
-                heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-                // Random rotation direction
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 8000);
-            }, 250);
-        }
-
-        function stopHearts() {
-            clearInterval(heartInterval);
-            heartInterval = null;
         }
 
         async function sendRequest() {
@@ -210,6 +184,7 @@
     </script>
 </body>
 </html>
+
 
 
 
