@@ -64,12 +64,18 @@
 
         /* ===== VALENTINE MODE ===== */
         body.valentine-mode {
-            background-color: #ffb6c1;
+            background-color: #ffb6c1; /* light pink */
             color: #5a0028;
-            background-image:
-                radial-gradient(circle at 10px 10px, #ff69b4 4px, transparent 4px),
-                radial-gradient(circle at 30px 30px, #ff1493 4px, transparent 4px);
-            background-size: 40px 40px;
+
+            /* scattered valentine-heart.jpg from assets */
+            background-image: 
+                url('assets/valentine-heart.jpg'),
+                url('assets/valentine-heart.jpg'),
+                url('assets/valentine-heart.jpg'),
+                url('assets/valentine-heart.jpg');
+            background-repeat: no-repeat;
+            background-position: 10% 20%, 50% 40%, 80% 15%, 30% 70%;
+            background-size: 60px 60px, 50px 50px, 40px 40px, 55px 55px;
         }
 
         body.valentine-mode h2 {
@@ -204,6 +210,7 @@
     </script>
 </body>
 </html>
+
 
 
 
