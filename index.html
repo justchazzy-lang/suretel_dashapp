@@ -19,6 +19,7 @@
             background: #ffffff;
             color: #000;
             transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
         /* Headings only */
@@ -86,6 +87,24 @@
         .toggle-buttons {
             margin-bottom: 20px;
         }
+
+        /* ===== Falling hearts animation ===== */
+        .heart {
+            position: fixed;
+            top: -20px;
+            font-size: 20px;
+            color: #8b0033; /* dark pink */
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -111,14 +130,38 @@
     <p id="response"></p>
 
     <script>
+        let heartInterval = null;
+
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
             document.body.classList.remove("valentine-mode");
+            stopHearts();
         }
 
         function toggleValentineMode() {
-            document.body.classList.toggle("valentine-mode");
+            const enabled = document.body.classList.toggle("valentine-mode");
             document.body.classList.remove("dark-mode");
+            if (enabled) startHearts();
+            else stopHearts();
+        }
+
+        function startHearts() {
+            if (heartInterval) return; // already running
+            heartInterval = setInterval(() => {
+                const heart = document.createElement("div");
+                heart.className = "heart";
+                heart.innerText = "💖";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.fontSize = (Math.random() * 12 + 16) + "px";
+                heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 7000);
+            }, 300);
+        }
+
+        function stopHearts() {
+            clearInterval(heartInterval);
+            heartInterval = null;
         }
 
         async function sendRequest() {
@@ -152,6 +195,7 @@
     </script>
 </body>
 </html>
+
 
 
 
