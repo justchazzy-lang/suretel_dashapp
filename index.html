@@ -61,19 +61,10 @@
             border: 1px solid #444;
         }
 
-        /* Dark mode starry background */
-        body.dark-mode.starry {
-            background-image: url('assets/starlight.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
         /* ===== VALENTINE MODE ===== */
         body.valentine-mode {
             background-color: #ffb6c1; /* light pink */
             color: #5a0028;
-            background-image: none; /* remove old patterned background */
         }
 
         body.valentine-mode h2 {
@@ -87,25 +78,50 @@
             color: #5a0028;
         }
 
-        /* Falling heart animation for Valentine mode */
-        .valentine-mode .heart {
+        /* Romantic CSS heart animation */
+        .heart {
             position: fixed;
-            width: 20px;
-            height: 20px;
-            background-image: url('assets/valentine-heart.jpg');
-            background-size: cover;
+            width: 15px;
+            height: 15px;
+            background-color: #ff4d94;
+            transform: rotate(-45deg);
+            left: 0;
+            top: 0;
             pointer-events: none;
-            animation-name: fallHeart;
-            animation-timing-function: linear;
+            z-index: 9999;
         }
 
-        @keyframes fallHeart {
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #ff4d94;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -7.5px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: 7.5px;
+        }
+
+        @keyframes floatHeart {
             0% {
-                transform: translateY(-50px) rotate(0deg);
+                transform: translateY(0) translateX(0) rotate(0deg);
                 opacity: 1;
             }
+            50% {
+                transform: translateY(50vh) translateX(15px) rotate(180deg);
+                opacity: 0.8;
+            }
             100% {
-                transform: translateY(110vh) rotate(360deg);
+                transform: translateY(100vh) translateX(-15px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -179,16 +195,28 @@
         }
 
         /* =================== */
-        /* Falling hearts animation for Valentine mode */
+        /* Romantic falling hearts animation */
         function createHeart() {
             if (!document.body.classList.contains('valentine-mode')) return;
             const heart = document.createElement('div');
             heart.classList.add('heart');
+
+            // Random horizontal start position
             heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+
+            // Random size
+            const size = 10 + Math.random() * 20;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            heart.style.setProperty('--size', size + 'px');
+
+            // Random animation duration
+            const duration = 3 + Math.random() * 3;
+            heart.style.animation = `floatHeart ${duration}s linear`;
+
             document.body.appendChild(heart);
 
-            setTimeout(() => heart.remove(), 5000); // remove after falling
+            setTimeout(() => heart.remove(), duration * 1000);
         }
 
         // Generate hearts periodically only in Valentine mode
@@ -196,3 +224,4 @@
     </script>
 </body>
 </html>
+
