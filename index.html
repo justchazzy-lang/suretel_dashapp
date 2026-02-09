@@ -23,12 +23,53 @@
             transition: background 0.3s, color 0.3s;
         }
 
+        /* Heading */
         h2 {
             font-family: 'Saphifen', 'Times New Roman', serif;
-            letter-spacing: 0.05em;
+            font-size: 30px;
+            color: #8B0000; /* dark red */
+            margin-bottom: 20px;
         }
 
-        /* 💖 Valentine Mode */
+        /* Top toggles */
+        .toggle-container {
+            margin: 20px 0;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-weight: bold;
+            margin: 0 8px;
+        }
+
+        .dark-btn {
+            background-color: #555;
+            color: #fff;
+        }
+
+        .dark-btn:hover {
+            background-color: #333;
+        }
+
+        /* Valentine toggle styling with downloaded image */
+        .valentine-btn {
+            background-color: #ffb6c1; /* pink */
+            color: #8b0033; /* dark pink text */
+            background-image: url('assets/valentine-heart.jpg');
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            padding-left: 35px; /* space for heart image */
+        }
+
+        .valentine-btn:hover {
+            background-color: #ff99b0;
+        }
+
+        /* Valentine background */
         body.valentine-mode {
             background-image: url("assets/valentine-heart.jpg");
             background-repeat: repeat;
@@ -36,22 +77,23 @@
             background-position: center;
         }
 
-        /* 🌙 Dark Mode */
+        /* Dark mode */
         body.dark-mode {
             background: #121212;
             color: #f1f1f1;
         }
 
-        /* Center card */
+        /* Card */
         .container {
             background: rgba(255, 255, 255, 0.92);
             max-width: 420px;
-            margin: 60px auto;
+            margin: 0 auto 60px auto;
             padding: 25px;
             border-radius: 14px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             position: relative;
             z-index: 10;
+            transition: background 0.3s;
         }
 
         body.dark-mode .container {
@@ -66,7 +108,7 @@
             font-size: 14px;
         }
 
-        button {
+        button.main-btn {
             cursor: pointer;
             border-radius: 8px;
             border: none;
@@ -75,25 +117,16 @@
             font-weight: bold;
         }
 
-        button:hover {
+        button.main-btn:hover {
             background-color: #d81b60;
         }
 
-        body.dark-mode button {
+        body.dark-mode button.main-btn {
             background-color: #444;
         }
 
-        body.dark-mode button:hover {
+        body.dark-mode button.main-btn:hover {
             background-color: #666;
-        }
-
-        .toggle-btn {
-            margin-top: 10px;
-            background: #555;
-        }
-
-        .toggle-btn:hover {
-            background: #333;
         }
 
         #response {
@@ -101,7 +134,7 @@
             font-weight: bold;
         }
 
-        /* 💖 Falling Hearts */
+        /* Falling hearts animation */
         .heart {
             position: fixed;
             top: -20px;
@@ -118,11 +151,19 @@
                 opacity: 0;
             }
         }
+
     </style>
 </head>
 
 <body>
 
+    <!-- Top toggles -->
+    <div class="toggle-container">
+        <button class="toggle-btn dark-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        <button class="toggle-btn valentine-btn" onclick="toggleValentineMode()">💖 Valentine Mode</button>
+    </div>
+
+    <!-- Main card -->
     <div class="container">
         <h2>Surtel Recording Downloader 💘</h2>
 
@@ -135,12 +176,9 @@
         <label>End Date:</label><br>
         <input type="date" id="endDate"><br>
 
-        <button onclick="sendRequest()">Pull Recordings</button>
+        <button class="main-btn" onclick="sendRequest()">Pull Recordings</button>
 
         <p id="response"></p>
-
-        <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-        <button class="toggle-btn" onclick="toggleValentineMode()">💖 Toggle Valentine Mode</button>
     </div>
 
     <script>
@@ -220,5 +258,7 @@
 
 </body>
 </html>
+
+
 
 
